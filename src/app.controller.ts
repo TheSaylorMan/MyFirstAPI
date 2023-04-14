@@ -1,9 +1,10 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
+import { CreateTransactionDto } from './dtos/transactions.dto';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) { }
+  constructor(private readonly appService: AppService) {}
 
   @Get()
   getHello(): string {
@@ -16,7 +17,7 @@ export class AppController {
   }
 
   @Post('/transactions')
-  createTransaction(): string {
-    return this.appService.createTransaction();
+  createTransaction(@Body() payload: CreateTransactionDto): CreateTransactionDto {
+    return this.appService.createTransaction(payload);
   }
 }
